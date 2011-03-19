@@ -20,49 +20,52 @@ using namespace ATL;
 // CContext2D
 
 class ATL_NO_VTABLE CContext2D :
-	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CContext2D, &CLSID_Context2D>,
-	public ISupportErrorInfo,
-	public IConnectionPointContainerImpl<CContext2D>,
-	public CProxy_IContext2DEvents<CContext2D>,
-	public IDispatchImpl<IContext2D, &IID_IContext2D, &LIBID_HTML5iLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+  public CComObjectRootEx<CComSingleThreadModel>,
+  public CComCoClass<CContext2D, &CLSID_Context2D>,
+  public ISupportErrorInfo,
+  public IConnectionPointContainerImpl<CContext2D>,
+  public CProxy_IContext2DEvents<CContext2D>,
+  public IDispatchImpl<IContext2D, &IID_IContext2D, &LIBID_HTML5iLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
-	CContext2D()
-	{
-	}
+  CContext2D()
+  {
+  }
 
 DECLARE_REGISTRY_RESOURCEID(IDR_CONTEXT2D)
 
 
 BEGIN_COM_MAP(CContext2D)
-	COM_INTERFACE_ENTRY(IContext2D)
-	COM_INTERFACE_ENTRY(IDispatch)
-	COM_INTERFACE_ENTRY(ISupportErrorInfo)
-	COM_INTERFACE_ENTRY(IConnectionPointContainer)
+  COM_INTERFACE_ENTRY(IContext2D)
+  COM_INTERFACE_ENTRY(IDispatch)
+  COM_INTERFACE_ENTRY(ISupportErrorInfo)
+  COM_INTERFACE_ENTRY(IConnectionPointContainer)
 END_COM_MAP()
 
 BEGIN_CONNECTION_POINT_MAP(CContext2D)
-	CONNECTION_POINT_ENTRY(__uuidof(_IContext2DEvents))
+  CONNECTION_POINT_ENTRY(__uuidof(_IContext2DEvents))
 END_CONNECTION_POINT_MAP()
 // ISupportsErrorInfo
-	STDMETHOD(InterfaceSupportsErrorInfo)(REFIID riid);
+  STDMETHOD(InterfaceSupportsErrorInfo)(REFIID riid);
 
 
-	DECLARE_PROTECT_FINAL_CONSTRUCT()
+  DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-	HRESULT FinalConstruct()
-	{
-		return S_OK;
-	}
+  HRESULT FinalConstruct()
+  {
+    return S_OK;
+  }
 
-	void FinalRelease()
-	{
-	}
+  void FinalRelease()
+  {
+  }
 
 public:
 
-
+  ////
+  // CanvasRenderingContext2D
+  //
+  STDMETHOD(get_canvas)(_Ret_ IHTMLCanvasElement **canvas) { return E_NOTIMPL; }
 
 };
 

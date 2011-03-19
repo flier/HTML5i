@@ -3,6 +3,8 @@
 #pragma once
 #include "resource.h"       // main symbols
 
+#include <string>
+
 #include <ExDisp.h>
 #include <ExDispid.h>
 
@@ -28,8 +30,12 @@ class ATL_NO_VTABLE CHtml5Ext :
   CComQIPtr<IWebBrowser2> m_spWebBrowser2;
 
   HRESULT ConnectBrowserEvents(bool advise);
-  void ProcessDocument(IHTMLDocument3 *pDoc);
-  void HackCanvas(IDispatch *pDisp);
+  void ProcessDocument(IHTMLDocument *pDoc);
+
+  void LoadJavascript(UINT id, std::wstring& source);
+  HRESULT ExecJavascript(IHTMLDocument *pDoc, const std::wstring& source);
+
+  void InstallHtml5Ext(IHTMLDocument *pDoc);
 public:
   CHtml5Ext() 
   {

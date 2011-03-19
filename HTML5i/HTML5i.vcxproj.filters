@@ -43,6 +43,9 @@
     <ClCompile Include="ContextWebGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DispExSinkConnector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -78,6 +81,9 @@
     <ClInclude Include="ContextWebGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DispExSinkConnector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HTML5i.rc">
@@ -99,6 +105,15 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ContextWebGL.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="html5i.js">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="javascri.bin">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="DispExSinkConnector.rgs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

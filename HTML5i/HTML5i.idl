@@ -142,6 +142,31 @@ interface WebGLRenderingContext : IDispatch {
 interface IContextWebGL : WebGLRenderingContext {
 };
 [
+  oleautomation,
+  dual,
+  uuid(A2AC0F60-EF8D-4F99-B882-B3B1C95F2AE7)
+]
+interface IDispExSinkConnector : IDispatch {
+  [propget] HRESULT target([out, retval] IDispatchEx **target);
+  [propput] HRESULT target([in] IDispatchEx *target);
+
+  [propget] HRESULT enabled([out, retval] boolean *enabled);
+  [propput] HRESULT enabled([in] boolean enabled);
+
+  HRESULT AddNamedObject([in] BSTR bstrName, [in] IDispatch *pDisp);
+  HRESULT RemoveNamedObject([in] BSTR bstrName);
+
+  HRESULT AddTypeLib([in] REFGUID guidTypeLib, 
+    [in, defaultvalue(1)] WORD wMajorVer, 
+    [in, defaultvalue(0)] WORD wMinorVer);
+
+  HRESULT ConnectObject([in] IUnknown *pUnk, [in] BSTR bstrPrefix, 
+    [in] REFGUID piid, [in] REFGUID plibid, 
+    [in, defaultvalue(1)] WORD wMajorVer, 
+    [in, defaultvalue(0)] WORD wMinorVer);
+  HRESULT DisconnectObject([in] IUnknown *pUnk, [in] REFGUID piid);
+};
+[
   uuid(A4D1951D-9150-4F60-B5E7-75FCAC9D0A54),
   version(1.0),
 ]
@@ -186,6 +211,13 @@ library HTML5iLib
   {
     [default] interface IContextWebGL;
     [default, source] dispinterface _IContextWebGLEvents;
+  };
+  [
+    uuid(3D5B1520-D5EC-458B-97DC-8E31B30B071F)		
+  ]
+  coclass DispExSinkConnector
+  {
+    [default] interface IDispExSinkConnector;
   };
 };
 
