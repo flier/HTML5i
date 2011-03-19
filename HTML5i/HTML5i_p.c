@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Sat Mar 19 01:25:02 2011
+/* at Sat Mar 19 08:57:01 2011
  */
 /* Compiler settings for HTML5i.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 
@@ -88,6 +88,34 @@ extern const MIDL_STUB_DESC Object_StubDesc;
 
 extern const MIDL_SERVER_INFO IHtml5Ext_ServerInfo;
 extern const MIDL_STUBLESS_PROXY_INFO IHtml5Ext_ProxyInfo;
+
+
+extern const MIDL_STUB_DESC Object_StubDesc;
+
+
+extern const MIDL_SERVER_INFO CanvasRenderingContext2D_ServerInfo;
+extern const MIDL_STUBLESS_PROXY_INFO CanvasRenderingContext2D_ProxyInfo;
+
+
+extern const MIDL_STUB_DESC Object_StubDesc;
+
+
+extern const MIDL_SERVER_INFO IContext2D_ServerInfo;
+extern const MIDL_STUBLESS_PROXY_INFO IContext2D_ProxyInfo;
+
+
+extern const MIDL_STUB_DESC Object_StubDesc;
+
+
+extern const MIDL_SERVER_INFO WebGLRenderingContext_ServerInfo;
+extern const MIDL_STUBLESS_PROXY_INFO WebGLRenderingContext_ProxyInfo;
+
+
+extern const MIDL_STUB_DESC Object_StubDesc;
+
+
+extern const MIDL_SERVER_INFO IContextWebGL_ServerInfo;
+extern const MIDL_STUBLESS_PROXY_INFO IContextWebGL_ProxyInfo;
 
 
 
@@ -196,6 +224,270 @@ CInterfaceStubVtbl _IHtml5ExtStubVtbl =
     CStdStubBuffer_DELEGATING_METHODS
 };
 
+
+/* Object interface: CanvasRenderingContext2D, ver. 0.0,
+   GUID={0x460266e0,0xd0fe,0x421f,{0xa6,0x69,0x42,0xe6,0xdb,0xc9,0x0b,0x89}} */
+
+#pragma code_seg(".orpc")
+static const unsigned short CanvasRenderingContext2D_FormatStringOffsetTable[] =
+    {
+    (unsigned short) -1,
+    (unsigned short) -1,
+    (unsigned short) -1,
+    (unsigned short) -1,
+    0
+    };
+
+static const MIDL_STUBLESS_PROXY_INFO CanvasRenderingContext2D_ProxyInfo =
+    {
+    &Object_StubDesc,
+    HTML5i__MIDL_ProcFormatString.Format,
+    &CanvasRenderingContext2D_FormatStringOffsetTable[-3],
+    0,
+    0,
+    0
+    };
+
+
+static const MIDL_SERVER_INFO CanvasRenderingContext2D_ServerInfo = 
+    {
+    &Object_StubDesc,
+    0,
+    HTML5i__MIDL_ProcFormatString.Format,
+    &CanvasRenderingContext2D_FormatStringOffsetTable[-3],
+    0,
+    0,
+    0,
+    0};
+CINTERFACE_PROXY_VTABLE(7) _CanvasRenderingContext2DProxyVtbl = 
+{
+    0,
+    &IID_CanvasRenderingContext2D,
+    IUnknown_QueryInterface_Proxy,
+    IUnknown_AddRef_Proxy,
+    IUnknown_Release_Proxy ,
+    0 /* IDispatch::GetTypeInfoCount */ ,
+    0 /* IDispatch::GetTypeInfo */ ,
+    0 /* IDispatch::GetIDsOfNames */ ,
+    0 /* IDispatch_Invoke_Proxy */
+};
+
+
+static const PRPC_STUB_FUNCTION CanvasRenderingContext2D_table[] =
+{
+    STUB_FORWARDING_FUNCTION,
+    STUB_FORWARDING_FUNCTION,
+    STUB_FORWARDING_FUNCTION,
+    STUB_FORWARDING_FUNCTION
+};
+
+CInterfaceStubVtbl _CanvasRenderingContext2DStubVtbl =
+{
+    &IID_CanvasRenderingContext2D,
+    &CanvasRenderingContext2D_ServerInfo,
+    7,
+    &CanvasRenderingContext2D_table[-3],
+    CStdStubBuffer_DELEGATING_METHODS
+};
+
+
+/* Object interface: IContext2D, ver. 0.0,
+   GUID={0x25EC7740,0x2D4E,0x4304,{0xA6,0x90,0x71,0x9E,0x61,0xE1,0x83,0x86}} */
+
+#pragma code_seg(".orpc")
+static const unsigned short IContext2D_FormatStringOffsetTable[] =
+    {
+    (unsigned short) -1,
+    (unsigned short) -1,
+    (unsigned short) -1,
+    (unsigned short) -1,
+    0
+    };
+
+static const MIDL_STUBLESS_PROXY_INFO IContext2D_ProxyInfo =
+    {
+    &Object_StubDesc,
+    HTML5i__MIDL_ProcFormatString.Format,
+    &IContext2D_FormatStringOffsetTable[-3],
+    0,
+    0,
+    0
+    };
+
+
+static const MIDL_SERVER_INFO IContext2D_ServerInfo = 
+    {
+    &Object_StubDesc,
+    0,
+    HTML5i__MIDL_ProcFormatString.Format,
+    &IContext2D_FormatStringOffsetTable[-3],
+    0,
+    0,
+    0,
+    0};
+CINTERFACE_PROXY_VTABLE(7) _IContext2DProxyVtbl = 
+{
+    0,
+    &IID_IContext2D,
+    IUnknown_QueryInterface_Proxy,
+    IUnknown_AddRef_Proxy,
+    IUnknown_Release_Proxy ,
+    0 /* IDispatch::GetTypeInfoCount */ ,
+    0 /* IDispatch::GetTypeInfo */ ,
+    0 /* IDispatch::GetIDsOfNames */ ,
+    0 /* IDispatch_Invoke_Proxy */
+};
+
+
+static const PRPC_STUB_FUNCTION IContext2D_table[] =
+{
+    STUB_FORWARDING_FUNCTION,
+    STUB_FORWARDING_FUNCTION,
+    STUB_FORWARDING_FUNCTION,
+    STUB_FORWARDING_FUNCTION
+};
+
+CInterfaceStubVtbl _IContext2DStubVtbl =
+{
+    &IID_IContext2D,
+    &IContext2D_ServerInfo,
+    7,
+    &IContext2D_table[-3],
+    CStdStubBuffer_DELEGATING_METHODS
+};
+
+
+/* Object interface: WebGLRenderingContext, ver. 0.0,
+   GUID={0xd09f39b0,0x9ad6,0x4fdc,{0xaf,0x56,0x6c,0x8c,0x2a,0x4c,0xaa,0x5c}} */
+
+#pragma code_seg(".orpc")
+static const unsigned short WebGLRenderingContext_FormatStringOffsetTable[] =
+    {
+    (unsigned short) -1,
+    (unsigned short) -1,
+    (unsigned short) -1,
+    (unsigned short) -1,
+    0
+    };
+
+static const MIDL_STUBLESS_PROXY_INFO WebGLRenderingContext_ProxyInfo =
+    {
+    &Object_StubDesc,
+    HTML5i__MIDL_ProcFormatString.Format,
+    &WebGLRenderingContext_FormatStringOffsetTable[-3],
+    0,
+    0,
+    0
+    };
+
+
+static const MIDL_SERVER_INFO WebGLRenderingContext_ServerInfo = 
+    {
+    &Object_StubDesc,
+    0,
+    HTML5i__MIDL_ProcFormatString.Format,
+    &WebGLRenderingContext_FormatStringOffsetTable[-3],
+    0,
+    0,
+    0,
+    0};
+CINTERFACE_PROXY_VTABLE(7) _WebGLRenderingContextProxyVtbl = 
+{
+    0,
+    &IID_WebGLRenderingContext,
+    IUnknown_QueryInterface_Proxy,
+    IUnknown_AddRef_Proxy,
+    IUnknown_Release_Proxy ,
+    0 /* IDispatch::GetTypeInfoCount */ ,
+    0 /* IDispatch::GetTypeInfo */ ,
+    0 /* IDispatch::GetIDsOfNames */ ,
+    0 /* IDispatch_Invoke_Proxy */
+};
+
+
+static const PRPC_STUB_FUNCTION WebGLRenderingContext_table[] =
+{
+    STUB_FORWARDING_FUNCTION,
+    STUB_FORWARDING_FUNCTION,
+    STUB_FORWARDING_FUNCTION,
+    STUB_FORWARDING_FUNCTION
+};
+
+CInterfaceStubVtbl _WebGLRenderingContextStubVtbl =
+{
+    &IID_WebGLRenderingContext,
+    &WebGLRenderingContext_ServerInfo,
+    7,
+    &WebGLRenderingContext_table[-3],
+    CStdStubBuffer_DELEGATING_METHODS
+};
+
+
+/* Object interface: IContextWebGL, ver. 0.0,
+   GUID={0xA63CCF94,0x3378,0x477F,{0x94,0xAF,0x71,0xA3,0x0F,0xB9,0x22,0xAE}} */
+
+#pragma code_seg(".orpc")
+static const unsigned short IContextWebGL_FormatStringOffsetTable[] =
+    {
+    (unsigned short) -1,
+    (unsigned short) -1,
+    (unsigned short) -1,
+    (unsigned short) -1,
+    0
+    };
+
+static const MIDL_STUBLESS_PROXY_INFO IContextWebGL_ProxyInfo =
+    {
+    &Object_StubDesc,
+    HTML5i__MIDL_ProcFormatString.Format,
+    &IContextWebGL_FormatStringOffsetTable[-3],
+    0,
+    0,
+    0
+    };
+
+
+static const MIDL_SERVER_INFO IContextWebGL_ServerInfo = 
+    {
+    &Object_StubDesc,
+    0,
+    HTML5i__MIDL_ProcFormatString.Format,
+    &IContextWebGL_FormatStringOffsetTable[-3],
+    0,
+    0,
+    0,
+    0};
+CINTERFACE_PROXY_VTABLE(7) _IContextWebGLProxyVtbl = 
+{
+    0,
+    &IID_IContextWebGL,
+    IUnknown_QueryInterface_Proxy,
+    IUnknown_AddRef_Proxy,
+    IUnknown_Release_Proxy ,
+    0 /* IDispatch::GetTypeInfoCount */ ,
+    0 /* IDispatch::GetTypeInfo */ ,
+    0 /* IDispatch::GetIDsOfNames */ ,
+    0 /* IDispatch_Invoke_Proxy */
+};
+
+
+static const PRPC_STUB_FUNCTION IContextWebGL_table[] =
+{
+    STUB_FORWARDING_FUNCTION,
+    STUB_FORWARDING_FUNCTION,
+    STUB_FORWARDING_FUNCTION,
+    STUB_FORWARDING_FUNCTION
+};
+
+CInterfaceStubVtbl _IContextWebGLStubVtbl =
+{
+    &IID_IContextWebGL,
+    &IContextWebGL_ServerInfo,
+    7,
+    &IContextWebGL_table[-3],
+    CStdStubBuffer_DELEGATING_METHODS
+};
+
 static const MIDL_STUB_DESC Object_StubDesc = 
     {
     0,
@@ -222,24 +514,40 @@ static const MIDL_STUB_DESC Object_StubDesc =
 
 const CInterfaceProxyVtbl * const _HTML5i_ProxyVtblList[] = 
 {
+    ( CInterfaceProxyVtbl *) &_IContext2DProxyVtbl,
     ( CInterfaceProxyVtbl *) &_IHtml5ExtProxyVtbl,
+    ( CInterfaceProxyVtbl *) &_IContextWebGLProxyVtbl,
+    ( CInterfaceProxyVtbl *) &_WebGLRenderingContextProxyVtbl,
+    ( CInterfaceProxyVtbl *) &_CanvasRenderingContext2DProxyVtbl,
     0
 };
 
 const CInterfaceStubVtbl * const _HTML5i_StubVtblList[] = 
 {
+    ( CInterfaceStubVtbl *) &_IContext2DStubVtbl,
     ( CInterfaceStubVtbl *) &_IHtml5ExtStubVtbl,
+    ( CInterfaceStubVtbl *) &_IContextWebGLStubVtbl,
+    ( CInterfaceStubVtbl *) &_WebGLRenderingContextStubVtbl,
+    ( CInterfaceStubVtbl *) &_CanvasRenderingContext2DStubVtbl,
     0
 };
 
 PCInterfaceName const _HTML5i_InterfaceNamesList[] = 
 {
+    "IContext2D",
     "IHtml5Ext",
+    "IContextWebGL",
+    "WebGLRenderingContext",
+    "CanvasRenderingContext2D",
     0
 };
 
 const IID *  const _HTML5i_BaseIIDList[] = 
 {
+    &IID_IDispatch,
+    &IID_IDispatch,
+    &IID_IDispatch,
+    &IID_IDispatch,
     &IID_IDispatch,
     0
 };
@@ -249,14 +557,13 @@ const IID *  const _HTML5i_BaseIIDList[] =
 
 int __stdcall _HTML5i_IID_Lookup( const IID * pIID, int * pIndex )
 {
-    
-    if(!_HTML5i_CHECK_IID(0))
-        {
-        *pIndex = 0;
-        return 1;
-        }
+    IID_BS_LOOKUP_SETUP
 
-    return 0;
+    IID_BS_LOOKUP_INITIAL_TEST( _HTML5i, 5, 4 )
+    IID_BS_LOOKUP_NEXT_TEST( _HTML5i, 2 )
+    IID_BS_LOOKUP_NEXT_TEST( _HTML5i, 1 )
+    IID_BS_LOOKUP_RETURN_RESULT( _HTML5i, 5, *pIndex )
+    
 }
 
 const ExtendedProxyFileInfo HTML5i_ProxyFileInfo = 
@@ -266,7 +573,7 @@ const ExtendedProxyFileInfo HTML5i_ProxyFileInfo =
     (const PCInterfaceName * ) & _HTML5i_InterfaceNamesList,
     (const IID ** ) & _HTML5i_BaseIIDList,
     & _HTML5i_IID_Lookup, 
-    1,
+    5,
     2,
     0, /* table of [async_uuid] interfaces */
     0, /* Filler1 */

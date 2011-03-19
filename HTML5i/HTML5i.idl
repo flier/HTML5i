@@ -8,27 +8,97 @@ import "oaidl.idl";
 import "ocidl.idl";
 
 [
-	object,
-	uuid(9B84976E-5DA4-466A-807F-367A6026757A),
-	dual,
-	nonextensible,
-	pointer_default(unique)
+  object,
+  uuid(9B84976E-5DA4-466A-807F-367A6026757A),
+  dual,
+  nonextensible,
+  pointer_default(unique)
 ]
 interface IHtml5Ext : IDispatch{
 };
 [
-	uuid(A4D1951D-9150-4F60-B5E7-75FCAC9D0A54),
-	version(1.0),
+  object,
+  uuid(460266e0-d0fe-421f-a669-42e6dbc90b89),
+  dual,
+  nonextensible,
+  pointer_default(unique)
+]
+interface CanvasRenderingContext2D : IDispatch {
+
+};
+[
+  object,
+  uuid(25EC7740-2D4E-4304-A690-719E61E18386),
+  dual,
+  nonextensible,
+  pointer_default(unique)
+]
+interface IContext2D : CanvasRenderingContext2D {
+};
+[
+  object,
+  uuid(d09f39b0-9ad6-4fdc-af56-6c8c2a4caa5c),
+  dual,
+  nonextensible,
+  pointer_default(unique)
+]
+interface WebGLRenderingContext : IDispatch {
+
+};
+[
+  object,
+  uuid(A63CCF94-3378-477F-94AF-71A30FB922AE),
+  dual,
+  nonextensible,
+  pointer_default(unique)
+]
+interface IContextWebGL : WebGLRenderingContext {
+};
+[
+  uuid(A4D1951D-9150-4F60-B5E7-75FCAC9D0A54),
+  version(1.0),
 ]
 library HTML5iLib
 {
-	importlib("stdole2.tlb");
-	[
-		uuid(275DF25D-C09D-43C8-90D7-9348D6059563)		
-	]
-	coclass Html5Ext
-	{
-		[default] interface IHtml5Ext;
-	};
+  importlib("stdole2.tlb");
+  [
+    uuid(275DF25D-C09D-43C8-90D7-9348D6059563)		
+  ]
+  coclass Html5Ext
+  {
+    [default] interface IHtml5Ext;
+  };
+  [
+    uuid(EF8B2E99-D76F-4F77-9E2E-CCDED21AF989)		
+  ]
+  dispinterface _IContext2DEvents
+  {
+    properties:
+    methods:
+  };
+  [
+    uuid(A2B02C23-5C77-44B3-B6FE-12BC43AA13D2)		
+  ]
+  coclass Context2D
+  {
+    [default] interface IContext2D;
+    [default, source] dispinterface _IContext2DEvents;
+  };
+  [
+    uuid(F5B00BA8-F210-4B70-B2BC-C8EB5B3FDCC9)		
+  ]
+  dispinterface _IContextWebGLEvents
+  {
+    properties:
+    methods:
+  };
+  [
+    uuid(801ADD56-023A-41CD-9555-D6156A23D1CB)		
+  ]
+  coclass ContextWebGL
+  {
+    [default] interface IContextWebGL;
+    [default, source] dispinterface _IContextWebGLEvents;
+  };
 };
 

@@ -37,6 +37,12 @@
     <ClCompile Include="Html5Ext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Context2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ContextWebGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -60,6 +66,18 @@
     <ClInclude Include="Html5Ext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="_IContext2DEvents_CP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Context2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_IContextWebGLEvents_CP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ContextWebGL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HTML5i.rc">
@@ -75,6 +93,12 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="Html5Ext.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Context2D.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ContextWebGL.rgs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

@@ -18,7 +18,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <UseOfAtl>Dynamic</UseOfAtl>
+    <UseOfAtl>Static</UseOfAtl>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -114,6 +114,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Context2D.cpp" />
+    <ClCompile Include="ContextWebGL.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -146,6 +148,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Context2D.h" />
+    <ClInclude Include="ContextWebGL.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="Html5Ext.h" />
     <ClInclude Include="HTML5i_i.h" />
@@ -153,11 +157,15 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="xdlldata.h" />
+    <ClInclude Include="_IContext2DEvents_CP.h" />
+    <ClInclude Include="_IContextWebGLEvents_CP.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HTML5i.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Context2D.rgs" />
+    <None Include="ContextWebGL.rgs" />
     <None Include="Html5Ext.rgs" />
     <None Include="HTML5i.def" />
     <None Include="HTML5i.rgs" />
