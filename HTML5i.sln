@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HTML5i", "HTML5i\HTML5i.vcxproj", "{08B819C4-0650-4E12-9FE7-9A0A0F87B962}"
+	ProjectSection(ProjectDependencies) = postProject
+		{77D97BC2-AE09-4A1B-88CF-2F5CD050A19C} = {77D97BC2-AE09-4A1B-88CF-2F5CD050A19C}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WebGL", "WebGL\WebGL.vcxproj", "{44751EB3-DCC8-4F58-8487-13E8239586C2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Canvas", "Canvas\Canvas.vcxproj", "{2D43CA58-6861-41A5-8AB5-167424B46A9C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTests", "UnitTests\UnitTests.vcxproj", "{77D97BC2-AE09-4A1B-88CF-2F5CD050A19C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2D43CA58-6861-41A5-8AB5-167424B46A9C} = {2D43CA58-6861-41A5-8AB5-167424B46A9C}
+		{44751EB3-DCC8-4F58-8487-13E8239586C2} = {44751EB3-DCC8-4F58-8487-13E8239586C2}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08B819C4-0650-4E12-9FE7-9A0A0F87B962}.Debug|Win32.ActiveCfg = Debug|Win32
+		{08B819C4-0650-4E12-9FE7-9A0A0F87B962}.Debug|Win32.Build.0 = Debug|Win32
+		{08B819C4-0650-4E12-9FE7-9A0A0F87B962}.Release|Win32.ActiveCfg = Release|Win32
+		{08B819C4-0650-4E12-9FE7-9A0A0F87B962}.Release|Win32.Build.0 = Release|Win32
+		{44751EB3-DCC8-4F58-8487-13E8239586C2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{44751EB3-DCC8-4F58-8487-13E8239586C2}.Debug|Win32.Build.0 = Debug|Win32
+		{44751EB3-DCC8-4F58-8487-13E8239586C2}.Release|Win32.ActiveCfg = Release|Win32
+		{44751EB3-DCC8-4F58-8487-13E8239586C2}.Release|Win32.Build.0 = Release|Win32
+		{2D43CA58-6861-41A5-8AB5-167424B46A9C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2D43CA58-6861-41A5-8AB5-167424B46A9C}.Debug|Win32.Build.0 = Debug|Win32
+		{2D43CA58-6861-41A5-8AB5-167424B46A9C}.Release|Win32.ActiveCfg = Release|Win32
+		{2D43CA58-6861-41A5-8AB5-167424B46A9C}.Release|Win32.Build.0 = Release|Win32
+		{77D97BC2-AE09-4A1B-88CF-2F5CD050A19C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{77D97BC2-AE09-4A1B-88CF-2F5CD050A19C}.Debug|Win32.Build.0 = Debug|Win32
+		{77D97BC2-AE09-4A1B-88CF-2F5CD050A19C}.Release|Win32.ActiveCfg = Release|Win32
+		{77D97BC2-AE09-4A1B-88CF-2F5CD050A19C}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

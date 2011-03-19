@@ -1,0 +1,34 @@
+// HTML5i.idl : IDL source for HTML5i
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (HTML5i.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(9B84976E-5DA4-466A-807F-367A6026757A),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IHtml5Ext : IDispatch{
+};
+[
+	uuid(A4D1951D-9150-4F60-B5E7-75FCAC9D0A54),
+	version(1.0),
+]
+library HTML5iLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(275DF25D-C09D-43C8-90D7-9348D6059563)		
+	]
+	coclass Html5Ext
+	{
+		[default] interface IHtml5Ext;
+	};
+};
+

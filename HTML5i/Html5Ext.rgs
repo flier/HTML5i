@@ -1,0 +1,42 @@
+HKCR
+{
+    NoRemove CLSID
+    {
+        ForceRemove {275DF25D-C09D-43C8-90D7-9348D6059563} = s 'Html5Ext Class'
+        {
+            ForceRemove Programmable
+            InprocServer32 = s '%MODULE%'
+            {
+                val ThreadingModel = s 'Apartment'
+            }
+            TypeLib = s '{A4D1951D-9150-4F60-B5E7-75FCAC9D0A54}'
+            Version = s '1.0'
+        }
+    }
+}
+
+HKLM
+{
+    NoRemove SOFTWARE 
+    {
+        NoRemove Microsoft 
+        {
+            NoRemove Windows 
+            {
+                NoRemove CurrentVersion 
+                {
+                    NoRemove Explorer 
+                    {
+                        NoRemove 'Browser Helper Objects'
+                        {
+                            ForceRemove {275DF25D-C09D-43C8-90D7-9348D6059563} = s 'Html5Ext'
+                            {
+                                val NoExplorer = d 1
+                            }
+                        }
+                    }
+                }
+            }    
+        }
+    }
+}
