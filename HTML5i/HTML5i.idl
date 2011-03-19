@@ -6,6 +6,22 @@
 
 import "oaidl.idl";
 import "ocidl.idl";
+import "mshtml.idl";
+
+typedef unsigned long  GLenum;
+typedef boolean        GLboolean;
+typedef unsigned long  GLbitfield;
+typedef byte           GLbyte;         /* 'byte' should be a signed 8 bit type. */
+typedef short          GLshort;
+typedef long           GLint;
+typedef long           GLsizei;
+typedef long long      GLintptr;
+typedef long long      GLsizeiptr;
+typedef char           GLubyte;        /* 'unsigned byte' should be an unsigned 8 bit type. */
+typedef unsigned short GLushort;
+typedef unsigned long  GLuint;
+typedef float          GLfloat;
+typedef float          GLclampf; 
 
 [
   object,
@@ -16,6 +32,77 @@ import "ocidl.idl";
 ]
 interface IHtml5Ext : IDispatch{
 };
+
+[
+  oleautomation,
+  dual,
+  uuid(34588a84-5107-4ff6-9063-373fbe4f97fb)
+]
+interface ICanvasGradient : IDispatch {
+  // opaque object
+  HRESULT addColorStop([in] double offset, [in] BSTR color);
+};
+
+[
+  oleautomation,
+  dual,
+  uuid(d9dd6b68-6f35-4c47-938a-489715623ddc)
+]
+interface ICanvasPattern : IDispatch {
+  // opaque object
+};
+
+[
+  oleautomation,
+  dual,
+  uuid(fef84bb3-56b4-4727-beeb-9b00b7c1e09e)
+]
+interface ITextMetrics : IDispatch {
+  [propget] HRESULT width([out, retval] double *width);
+};
+
+[
+  oleautomation,
+  dual,
+  uuid(13c542cf-240d-4ad9-ba57-86cda4793920)
+]
+interface ICanvasPixelArray : IDispatch {
+  [propget] HRESULT length([out, retval] unsigned long *length);
+  [propget] HRESULT octet ([in] unsigned long index, [out, retval] int *value);
+  [propput] HRESULT octet ([in] unsigned long index, [in] int value);
+};
+
+[
+  oleautomation,
+  dual,
+  uuid(947a0d1c-d551-42f8-bbbd-48a93e97f97b)
+]
+interface IImageData : IDispatch {
+  [propget] HRESULT width([out, retval] unsigned long *width);
+  [propget] HRESULT height([out, retval] unsigned long *height);
+  [propget] HRESULT data([out, retval] ICanvasPixelArray **height);
+};
+
+interface CanvasRenderingContext2D;
+
+[
+  oleautomation,
+  dual,
+  uuid(a7ef5435-ab8e-4b36-b648-b2e023737406)
+]
+interface IHTMLCanvasElement : IHTMLElement {
+  [propget] HRESULT width([out, retval] unsigned long *width);
+  [propput] HRESULT width([in] unsigned long width);
+  [propget] HRESULT height([out, retval] unsigned long *height);
+  [propput] HRESULT height([in] unsigned long height);
+
+  [vararg] HRESULT toDataURL([in] SAFEARRAY(VARIANT) args,
+                             [out, retval] BSTR *url);
+  [vararg] HRESULT getContext([in] BSTR contextId, 
+                              [in] SAFEARRAY(VARIANT) args,
+                              [out, retval] CanvasRenderingContext2D ** context);
+}
+
 [
   object,
   uuid(460266e0-d0fe-421f-a669-42e6dbc90b89),
@@ -24,7 +111,7 @@ interface IHtml5Ext : IDispatch{
   pointer_default(unique)
 ]
 interface CanvasRenderingContext2D : IDispatch {
-
+  [propget] HRESULT canvas([out, retval] IHTMLCanvasElement **canvas);
 };
 [
   object,
