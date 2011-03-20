@@ -34,12 +34,6 @@ void CScriptEnvTest::InitEngine()
   ASSERT_EQ(SCRIPTSTATE_INITIALIZED, m_host->m_state);
 }
 
-typedef HRESULT (STDAPICALLTYPE * DllGetClassObjectFunc)(
-  REFCLSID rclsid,
-  REFIID riid,
-  LPVOID * ppv
-  );
-
 void CScriptEnvTest::LoadExtension()
 {
   HMODULE hDll = ::LoadLibrary(_T("HTML5i.dll"));
@@ -50,25 +44,20 @@ void CScriptEnvTest::LoadExtension()
 
   ASSERT_TRUE(NULL != fnDllGetClassObject);
 
-  {
-    CComPtr<IClassFactory> spFactory;
-    CComPtr<IUnknown> spUnk;
+  LoadClass(fnDllGetClassObject, _T("CanvasRenderingContext2D"), CLSID_Context2D);
+  LoadClass(fnDllGetClassObject, _T("WebGLRenderingContext"), CLSID_ContextWebGL);
+}
 
-    ASSERT_HRESULT_SUCCEEDED(fnDllGetClassObject(CLSID_Context2D, __uuidof(IClassFactory), (LPVOID *) &spFactory));
-    ASSERT_HRESULT_SUCCEEDED(spFactory->CreateInstance(NULL, __uuidof(IUnknown), (LPVOID *) &spUnk));
+void CScriptEnvTest::LoadClass(CScriptEnvTest::DllGetClassObjectFunc fnDllGetClassObject, LPCTSTR name, REFCLSID clsid)
+{
+  CComPtr<IClassFactory> spFactory;
+  CComPtr<IUnknown> spUnk;
 
-    m_host->m_items.Add(CComBSTR(_T("CanvasRenderingContext2D")), spUnk);
-  }
+  ASSERT_HRESULT_SUCCEEDED(fnDllGetClassObject(clsid, __uuidof(IClassFactory), (LPVOID *) &spFactory));
+  ASSERT_HRESULT_SUCCEEDED(spFactory->CreateInstance(NULL, __uuidof(IUnknown), (LPVOID *) &spUnk));
 
-  {
-    CComPtr<IClassFactory> spFactory;
-    CComPtr<IUnknown> spUnk;
-
-    ASSERT_HRESULT_SUCCEEDED(fnDllGetClassObject(CLSID_ContextWebGL, __uuidof(IClassFactory), (LPVOID *) &spFactory));
-    ASSERT_HRESULT_SUCCEEDED(spFactory->CreateInstance(NULL, __uuidof(IUnknown), (LPVOID *) &spUnk));
-
-    m_host->m_items.Add(CComBSTR(_T("WebGLRenderingContext")), spUnk);
-  }
+  m_host->m_items.Add(CComBSTR(name), spUnk.Detach());
+  ASSERT_HRESULT_SUCCEEDED(m_spEngine->AddNamedItem(name, SCRIPTITEM_GLOBALMEMBERS | SCRIPTITEM_ISVISIBLE));  
 }
 
 void CScriptEnvTest::TearDown()
@@ -96,7 +85,7 @@ HRESULT CScriptEnvTest::ExecuteScript(LPCTSTR source, EXCEPINFO *exc, CComVarian
   return hr;
 }
 
-TEST_F(CScriptEnvTest, Executing)
+TEST_F(CScriptEnvTest, ExecuteScript)
 {
   EXCEPINFO exc;
   CComVariant result;
@@ -107,4 +96,11 @@ TEST_F(CScriptEnvTest, Executing)
   ASSERT_EQ(3, result.intVal);
 
   ASSERT_EQ(SCRIPT_E_REPORTED, ExecuteScript(_T("nonexist"), &exc, &result));   
+}
+
+TEST_F(CScriptEnvTest, Constructor)
+{
+  ASSERT_HRESULT_SUCCEEDED(ExecuteScript(_T("var canvas = new CanvasRenderingContext2D();")));
+
+  ASSERT_HRESULT_SUCCEEDED(ExecuteScript(_T("var webgl = new WebGLRenderingContext();")));    
 }

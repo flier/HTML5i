@@ -22,7 +22,7 @@ class CScriptHost : public IActiveScriptSite
   ULONG m_excLineNum;
   LONG m_excCharPos;
 
-  CSimpleMap< CComBSTR, CComPtr<IUnknown> > m_items;
+  CSimpleMap<CComBSTR, IUnknown *> m_items;
 public:
   CScriptHost()
     : m_refCnt(0), m_state(SCRIPTSTATE_UNINITIALIZED), m_depth(0),
@@ -73,7 +73,18 @@ public:
     /* [out] */ __RPC__deref_out_opt IUnknown **ppiunkItem,
     /* [out] */ __RPC__deref_out_opt ITypeInfo **ppti) 
   {
-    return E_NOTIMPL;
+    if (SCRIPTINFO_IUNKNOWN == (dwReturnMask & SCRIPTINFO_IUNKNOWN))
+    {
+      if (ppiunkItem)
+      {
+        *ppiunkItem = m_items.Lookup(CComBSTR(pstrName));
+
+        if (*ppiunkItem) (*ppiunkItem)->AddRef();
+      }
+      if (ppti) *ppti = NULL;
+    }
+
+    return S_OK;
   }
 
   virtual HRESULT STDMETHODCALLTYPE GetDocVersionString( 
@@ -141,8 +152,15 @@ class CScriptEnvTest : public ::testing::Test
   std::auto_ptr<CScriptHost> m_host;
   CComPtr<IActiveScript> m_spEngine;
 
+  typedef HRESULT (STDAPICALLTYPE * DllGetClassObjectFunc)(
+    REFCLSID rclsid,
+    REFIID riid,
+    LPVOID * ppv
+    );
+
   void InitEngine();
   void LoadExtension();
+  void LoadClass(DllGetClassObjectFunc fnDllGetClassObject, LPCTSTR name, REFCLSID clsid);
 protected:
   CScriptEnvTest(void) : m_host(new CScriptHost())
   {
