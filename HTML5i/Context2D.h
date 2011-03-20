@@ -65,7 +65,12 @@ public:
   ////
   // CanvasRenderingContext2D
   //
-  STDMETHOD(get_canvas)(_Ret_ IHTMLCanvasElement **canvas) { return E_NOTIMPL; }
+  STDMETHOD(get_canvas)(_Ret_ IHTMLCanvasElement **canvas) 
+  { 
+    *canvas = NULL; 
+    
+    return S_OK; 
+  }
 
 };
 

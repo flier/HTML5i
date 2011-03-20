@@ -121,7 +121,13 @@ TEST_F(CScriptEnvTest, Properties)
   EXCEPINFO exc;
   CComVariant result;
 
+  ASSERT_HRESULT_SUCCEEDED(ExecuteScript(_T("canvas"), &exc, &result));
+
+  ASSERT_EQ(VT_DISPATCH, result.vt);
+  ASSERT_NE((IDispatch *) NULL, result.pdispVal);
+
   ASSERT_HRESULT_SUCCEEDED(ExecuteScript(_T("canvas.canvas"), &exc, &result));
 
   ASSERT_EQ(VT_DISPATCH, result.vt);
+  ASSERT_EQ((IDispatch *) NULL, result.pdispVal);
 }
