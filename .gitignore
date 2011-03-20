@@ -1,0 +1,11 @@
+*.bak
+*.suo
+*.sdf
+*.opensdf
+
+*Debug/
+*Release/
+
+HTML5i/HTML5i_i.c
+HTML5i/HTML5i_i.h
+HTML5i/HTML5i_p.c
