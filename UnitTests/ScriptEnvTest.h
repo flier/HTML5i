@@ -147,6 +147,7 @@ public:
   }
 };
 
+
 class CScriptEnvTest : public ::testing::Test
 {  
   std::auto_ptr<CScriptHost> m_host;

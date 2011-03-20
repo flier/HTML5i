@@ -2,6 +2,7 @@
 #include "ScriptEnvTest.h"
 
 #include "HTML5i_i.h"
+#include "DispExImpl.h"
 
 #define SCRIPT_E_REPORTED 0x80020101 // http://support.microsoft.com/kb/247784
 
@@ -42,22 +43,30 @@ void CScriptEnvTest::LoadExtension()
 
   DllGetClassObjectFunc fnDllGetClassObject = (DllGetClassObjectFunc) ::GetProcAddress(hDll, "DllGetClassObject");
 
+  CComPtr<ITypeLib> spTypeLib;
+
+  ASSERT_HRESULT_SUCCEEDED(::LoadTypeLib(_T("HTML5i.dll"), &spTypeLib));  
+
   ASSERT_TRUE(NULL != fnDllGetClassObject);
 
-  LoadClass(fnDllGetClassObject, _T("CanvasRenderingContext2D"), CLSID_Context2D);
-  LoadClass(fnDllGetClassObject, _T("WebGLRenderingContext"), CLSID_ContextWebGL);
+  LoadClass(fnDllGetClassObject, _T("Context2D"), CLSID_Context2D);
+  LoadClass(fnDllGetClassObject, _T("ContextWebGL"), CLSID_ContextWebGL);
 }
 
 void CScriptEnvTest::LoadClass(CScriptEnvTest::DllGetClassObjectFunc fnDllGetClassObject, LPCTSTR name, REFCLSID clsid)
 {
   CComPtr<IClassFactory> spFactory;
-  CComPtr<IUnknown> spUnk;
 
   ASSERT_HRESULT_SUCCEEDED(fnDllGetClassObject(clsid, __uuidof(IClassFactory), (LPVOID *) &spFactory));
-  ASSERT_HRESULT_SUCCEEDED(spFactory->CreateInstance(NULL, __uuidof(IUnknown), (LPVOID *) &spUnk));
 
-  m_host->m_items.Add(CComBSTR(name), spUnk.Detach());
-  ASSERT_HRESULT_SUCCEEDED(m_spEngine->AddNamedItem(name, SCRIPTITEM_GLOBALMEMBERS | SCRIPTITEM_ISVISIBLE));  
+  CComObjectNoLock<CClassFactoryConstructor> *ctor = new CComObjectNoLock<CClassFactoryConstructor>();
+
+  ctor->Attach(spFactory.Detach());
+
+  m_host->m_items.Add(CComBSTR(name), ctor);
+
+  ASSERT_HRESULT_SUCCEEDED(m_spEngine->AddNamedItem(name, 
+    SCRIPTITEM_GLOBALMEMBERS | SCRIPTITEM_ISVISIBLE));  
 }
 
 void CScriptEnvTest::TearDown()
@@ -100,7 +109,19 @@ TEST_F(CScriptEnvTest, ExecuteScript)
 
 TEST_F(CScriptEnvTest, Constructor)
 {
-  ASSERT_HRESULT_SUCCEEDED(ExecuteScript(_T("var canvas = new CanvasRenderingContext2D();")));
+  ASSERT_HRESULT_SUCCEEDED(ExecuteScript(_T("var canvas = new Context2D();")));
 
-  ASSERT_HRESULT_SUCCEEDED(ExecuteScript(_T("var webgl = new WebGLRenderingContext();")));    
+  ASSERT_HRESULT_SUCCEEDED(ExecuteScript(_T("var webgl = new ContextWebGL();")));    
+}
+
+TEST_F(CScriptEnvTest, Properties)
+{
+  ASSERT_HRESULT_SUCCEEDED(ExecuteScript(_T("var canvas = new Context2D();")));
+
+  EXCEPINFO exc;
+  CComVariant result;
+
+  ASSERT_HRESULT_SUCCEEDED(ExecuteScript(_T("canvas.canvas"), &exc, &result));
+
+  ASSERT_EQ(VT_DISPATCH, result.vt);
 }
