@@ -21,6 +21,8 @@ class CScriptHost : public IActiveScriptSite
   DWORD m_excCookie;
   ULONG m_excLineNum;
   LONG m_excCharPos;
+
+  CSimpleMap< CComBSTR, CComPtr<IUnknown> > m_items;
 public:
   CScriptHost()
     : m_refCnt(0), m_state(SCRIPTSTATE_UNINITIALIZED), m_depth(0),
@@ -138,6 +140,9 @@ class CScriptEnvTest : public ::testing::Test
 {  
   std::auto_ptr<CScriptHost> m_host;
   CComPtr<IActiveScript> m_spEngine;
+
+  void InitEngine();
+  void LoadExtension();
 protected:
   CScriptEnvTest(void) : m_host(new CScriptHost())
   {

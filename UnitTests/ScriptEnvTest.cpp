@@ -1,9 +1,23 @@
 #include "StdAfx.h"
 #include "ScriptEnvTest.h"
 
+#include "HTML5i_i.h"
+
 #define SCRIPT_E_REPORTED 0x80020101 // http://support.microsoft.com/kb/247784
 
+#define DEFINE_CLSID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) \
+  const CLSID name = {l,w1,w2,{b1,b2,b3,b4,b5,b6,b7,b8}}
+
+DEFINE_CLSID(CLSID_Context2D,0xA2B02C23,0x5C77,0x44B3,0xB6,0xFE,0x12,0xBC,0x43,0xAA,0x13,0xD2);
+DEFINE_CLSID(CLSID_ContextWebGL,0x801ADD56,0x023A,0x41CD,0x95,0x55,0xD6,0x15,0x6A,0x23,0xD1,0xCB);
+
 void CScriptEnvTest::SetUp()
+{
+  InitEngine();
+  LoadExtension();
+}
+
+void CScriptEnvTest::InitEngine()
 {
   CLSID clsidJavascript;
 
@@ -18,6 +32,43 @@ void CScriptEnvTest::SetUp()
   ASSERT_HRESULT_SUCCEEDED(parser->InitNew());
 
   ASSERT_EQ(SCRIPTSTATE_INITIALIZED, m_host->m_state);
+}
+
+typedef HRESULT (STDAPICALLTYPE * DllGetClassObjectFunc)(
+  REFCLSID rclsid,
+  REFIID riid,
+  LPVOID * ppv
+  );
+
+void CScriptEnvTest::LoadExtension()
+{
+  HMODULE hDll = ::LoadLibrary(_T("HTML5i.dll"));
+
+  ASSERT_TRUE(NULL != hDll);
+
+  DllGetClassObjectFunc fnDllGetClassObject = (DllGetClassObjectFunc) ::GetProcAddress(hDll, "DllGetClassObject");
+
+  ASSERT_TRUE(NULL != fnDllGetClassObject);
+
+  {
+    CComPtr<IClassFactory> spFactory;
+    CComPtr<IUnknown> spUnk;
+
+    ASSERT_HRESULT_SUCCEEDED(fnDllGetClassObject(CLSID_Context2D, __uuidof(IClassFactory), (LPVOID *) &spFactory));
+    ASSERT_HRESULT_SUCCEEDED(spFactory->CreateInstance(NULL, __uuidof(IUnknown), (LPVOID *) &spUnk));
+
+    m_host->m_items.Add(CComBSTR(_T("CanvasRenderingContext2D")), spUnk);
+  }
+
+  {
+    CComPtr<IClassFactory> spFactory;
+    CComPtr<IUnknown> spUnk;
+
+    ASSERT_HRESULT_SUCCEEDED(fnDllGetClassObject(CLSID_ContextWebGL, __uuidof(IClassFactory), (LPVOID *) &spFactory));
+    ASSERT_HRESULT_SUCCEEDED(spFactory->CreateInstance(NULL, __uuidof(IUnknown), (LPVOID *) &spUnk));
+
+    m_host->m_items.Add(CComBSTR(_T("WebGLRenderingContext")), spUnk);
+  }
 }
 
 void CScriptEnvTest::TearDown()
