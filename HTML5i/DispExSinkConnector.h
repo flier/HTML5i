@@ -19,38 +19,38 @@ using namespace ATL;
 // CDispExSinkConnector
 
 class ATL_NO_VTABLE CDispExSinkConnector :
-	public CComObjectRootEx<CComSingleThreadModel>,
-	public CComCoClass<CDispExSinkConnector, &CLSID_DispExSinkConnector>,
-	public IDispatchImpl<IDispExSinkConnector, &IID_IDispExSinkConnector, &LIBID_HTML5iLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+  public CComObjectRootEx<CComSingleThreadModel>,
+  public CComCoClass<CDispExSinkConnector, &CLSID_DispExSinkConnector>,
+  public IDispatchImpl<IDispExSinkConnector, &IID_IDispExSinkConnector, &LIBID_HTML5iLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
   IDispatchEx *m_target;
   bool m_enabled;
 public:
-	CDispExSinkConnector() : m_target(NULL), m_enabled(true)
-	{
-	}
+  CDispExSinkConnector() : m_target(NULL), m_enabled(true)
+  {
+  }
 
 DECLARE_REGISTRY_RESOURCEID(IDR_DISPEXSINKCONNECTOR)
 
 DECLARE_NOT_AGGREGATABLE(CDispExSinkConnector)
 
 BEGIN_COM_MAP(CDispExSinkConnector)
-	COM_INTERFACE_ENTRY(IDispExSinkConnector)
-	COM_INTERFACE_ENTRY(IDispatch)
+  COM_INTERFACE_ENTRY(IDispExSinkConnector)
+  COM_INTERFACE_ENTRY(IDispatch)
 END_COM_MAP()
 
 
 
-	DECLARE_PROTECT_FINAL_CONSTRUCT()
+  DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-	HRESULT FinalConstruct()
-	{
-		return S_OK;
-	}
+  HRESULT FinalConstruct()
+  {
+    return S_OK;
+  }
 
-	void FinalRelease()
-	{
-	}
+  void FinalRelease()
+  {
+  }
 
 public:
 

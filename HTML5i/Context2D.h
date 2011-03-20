@@ -3,7 +3,7 @@
 #pragma once
 #include "resource.h"       // main symbols
 
-
+#include "DispExImpl.h"
 
 #include "HTML5i_i.h"
 #include "_IContext2DEvents_CP.h"
@@ -25,7 +25,7 @@ class ATL_NO_VTABLE CContext2D :
   public ISupportErrorInfo,
   public IConnectionPointContainerImpl<CContext2D>,
   public CProxy_IContext2DEvents<CContext2D>,
-  public IDispatchImpl<IContext2D, &IID_IContext2D, &LIBID_HTML5iLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+  public IDispatchExImpl<IContext2D, &IID_IContext2D, &LIBID_HTML5iLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
   CContext2D()

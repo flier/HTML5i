@@ -3,7 +3,7 @@
 #pragma once
 #include "resource.h"       // main symbols
 
-
+#include "DispExImpl.h"
 
 #include "HTML5i_i.h"
 #include "_IContextWebGLEvents_CP.h"
@@ -25,7 +25,7 @@ class ATL_NO_VTABLE CContextWebGL :
 	public ISupportErrorInfo,
 	public IConnectionPointContainerImpl<CContextWebGL>,
 	public CProxy_IContextWebGLEvents<CContextWebGL>,
-	public IDispatchImpl<IContextWebGL, &IID_IContextWebGL, &LIBID_HTML5iLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+	public IDispatchExImpl<IContextWebGL, &IID_IContextWebGL, &LIBID_HTML5iLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
 	CContextWebGL()

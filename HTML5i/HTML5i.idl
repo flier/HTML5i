@@ -110,7 +110,7 @@ interface IHTMLCanvasElement : IHTMLElement {
   nonextensible,
   pointer_default(unique)
 ]
-interface CanvasRenderingContext2D : IDispatch {
+interface CanvasRenderingContext2D : IDispatchEx {
   [propget] HRESULT canvas([out, retval] IHTMLCanvasElement **canvas);
 };
 [
@@ -129,7 +129,7 @@ interface IContext2D : CanvasRenderingContext2D {
   nonextensible,
   pointer_default(unique)
 ]
-interface WebGLRenderingContext : IDispatch {
+interface WebGLRenderingContext : IDispatchEx {
 
 };
 [

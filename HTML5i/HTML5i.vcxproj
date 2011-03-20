@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="Context2D.h" />
     <ClInclude Include="ContextWebGL.h" />
+    <ClInclude Include="DispExImpl.h" />
     <ClInclude Include="DispExSinkConnector.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="Html5Ext.h" />

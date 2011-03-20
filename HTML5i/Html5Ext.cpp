@@ -6,6 +6,8 @@
 #include <ActivScp.h>
 
 #include "DispExSinkConnector.h"
+#include "Context2D.h"
+#include "ContextWebGL.h"
 
 #define TRACE_LEVEL_FATAL 0
 #define TRACE_LEVEL_ERROR 1
@@ -118,7 +120,7 @@ HRESULT CHtml5Ext::ExecJavascript(IHTMLDocument *pDoc, const std::wstring& sourc
 
   HRESULT hr = pDoc->get_Script(&spDisp);
   
-  if (SUCCEEDED(hr))
+  if (SUCCEEDED(hr) && spDisp)
   {
     CComPtr<IDispExSinkConnector> spConnector;
 
@@ -132,6 +134,24 @@ HRESULT CHtml5Ext::ExecJavascript(IHTMLDocument *pDoc, const std::wstring& sourc
 
     ATLASSERT(SUCCEEDED(hr));
 
+    CComPtr<CanvasRenderingContext2D> spCanvas;
+
+    hr = CComCoClass<CContext2D>::CreateInstance(&spCanvas);
+
+    ATLASSERT(SUCCEEDED(hr));
+
+    hr = spConnector->AddNamedObject(CComBSTR("CanvasRenderingContext2D"), spCanvas);
+
+    ATLASSERT(SUCCEEDED(hr));
+
+    CComPtr<WebGLRenderingContext> spWebGL;
+
+    hr = CComCoClass<CContextWebGL>::CreateInstance(&spWebGL);
+
+    ATLASSERT(SUCCEEDED(hr));
+
+    hr = spConnector->AddNamedObject(CComBSTR("WebGLRenderingContext"), spWebGL);
+
     CComQIPtr<IHTMLWindow2> spWin = spDisp;
 
     CComBSTR src(source.c_str()), lang(_T("javascript"));
@@ -139,10 +159,7 @@ HRESULT CHtml5Ext::ExecJavascript(IHTMLDocument *pDoc, const std::wstring& sourc
 
     hr = spWin->execScript(src, lang, &ret);
 
-    if (SUCCEEDED(hr))
-    {
-
-    }
+    ATLASSERT(SUCCEEDED(hr));
   }
 
   return hr;
