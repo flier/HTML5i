@@ -144,6 +144,11 @@ HRESULT CHtml5Ext::ExecJavascript(IHTMLDocument *pDoc, const std::wstring& sourc
 
     ATLASSERT(SUCCEEDED(hr));
 
+    hr = spConnector->ConnectObject(m_spWebBrowser2, 
+      CComBSTR(_T("Canvas_")), __uuidof(_IContext2DEvents), LIBID_HTML5iLib);
+
+    ATLASSERT(SUCCEEDED(hr));
+
     CComPtr<WebGLRenderingContext> spWebGL;
 
     hr = CComCoClass<CContextWebGL>::CreateInstance(&spWebGL);
@@ -151,6 +156,13 @@ HRESULT CHtml5Ext::ExecJavascript(IHTMLDocument *pDoc, const std::wstring& sourc
     ATLASSERT(SUCCEEDED(hr));
 
     hr = spConnector->AddNamedObject(CComBSTR("WebGLRenderingContext"), spWebGL);
+
+    ATLASSERT(SUCCEEDED(hr));
+
+    hr = spConnector->ConnectObject(m_spWebBrowser2, 
+      CComBSTR(_T("WebGL_")), __uuidof(_IContextWebGLEvents), LIBID_HTML5iLib);
+
+    ATLASSERT(SUCCEEDED(hr));
 
     CComQIPtr<IHTMLWindow2> spWin = spDisp;
 
