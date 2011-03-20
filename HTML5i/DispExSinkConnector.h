@@ -94,16 +94,10 @@ public:
 
   virtual HRESULT STDMETHODCALLTYPE AddNamedObject( 
     /* [in] */ BSTR bstrName,
-    /* [in] */ IDispatch *pDisp) 
-  {
-    return E_NOTIMPL;
-  }
+    /* [in] */ IDispatch *pDisp);
 
   virtual HRESULT STDMETHODCALLTYPE RemoveNamedObject( 
-    /* [in] */ BSTR bstrName)
-  {
-      return E_NOTIMPL;
-  }
+    /* [in] */ BSTR bstrName);
 
   virtual HRESULT STDMETHODCALLTYPE AddTypeLib( 
     /* [in] */ REFGUID guidTypeLib,
