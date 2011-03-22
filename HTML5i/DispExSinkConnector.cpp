@@ -128,7 +128,7 @@ HRESULT CDispExSinkConnector::AddNamedObject(
       DISPATCH_PROPERTYPUT, &params, NULL, &exc, NULL);
   }
 
-  return E_NOTIMPL;
+  return hr;
 }
 
 HRESULT CDispExSinkConnector::RemoveNamedObject( 

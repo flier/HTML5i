@@ -4,6 +4,8 @@
 
 using namespace ATL;
 
+class CClassFactoryConstructor;
+
 class IDispatchExBase
 {
 protected:
@@ -141,7 +143,7 @@ public:
   }
 };
 
-template <class T, const IID* piid = &__uuidof(T), const GUID* plibid = &CAtlModule::m_libid, 
+template <class C, class T, const IID* piid = &__uuidof(T), const GUID* plibid = &CAtlModule::m_libid, 
   WORD wMajor = 1, WORD wMinor = 0, class tihclass = CComTypeInfoHolder>
 class ATL_NO_VTABLE IDispatchExImpl 
   : public IDispatchImpl<T, piid, plibid, wMajor, wMinor, tihclass>,
@@ -151,6 +153,19 @@ public:
   IDispatchExImpl() : IDispatchExBase(_tih)
   {
 
+  }
+
+  static CClassFactoryConstructor *CreateConstructor(void)
+  {
+    CComPtr<IClassFactory> spFactory;
+
+    C::_ClassFactoryCreatorClass::CreateInstance(NULL, __uuidof(IClassFactory), (LPVOID *) &spFactory);
+
+    CComObject<CClassFactoryConstructor> *ctor = new CComObject<CClassFactoryConstructor>();
+
+    ctor->Attach(spFactory.Detach());
+
+    return ctor;
   }
 
   virtual HRESULT STDMETHODCALLTYPE DeleteMemberByName( 

@@ -25,7 +25,9 @@ class ATL_NO_VTABLE CContext2D :
   public ISupportErrorInfo,
   public IConnectionPointContainerImpl<CContext2D>,
   public CProxy_IContext2DEvents<CContext2D>,
-  public IDispatchExImpl<IContext2D, &IID_IContext2D, &LIBID_HTML5iLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+  public IDispatchExImpl<CContext2D, IContext2D, 
+                         &IID_IContext2D, &LIBID_HTML5iLib, 
+                         /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
   CContext2D()

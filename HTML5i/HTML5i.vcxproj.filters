@@ -87,6 +87,9 @@
     <ClInclude Include="DispExImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LogHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HTML5i.rc">

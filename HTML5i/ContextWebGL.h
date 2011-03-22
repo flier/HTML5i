@@ -25,7 +25,9 @@ class ATL_NO_VTABLE CContextWebGL :
 	public ISupportErrorInfo,
 	public IConnectionPointContainerImpl<CContextWebGL>,
 	public CProxy_IContextWebGLEvents<CContextWebGL>,
-	public IDispatchExImpl<IContextWebGL, &IID_IContextWebGL, &LIBID_HTML5iLib, /*wMajor =*/ 1, /*wMinor =*/ 0>
+	public IDispatchExImpl<CContextWebGL, IContextWebGL, 
+                         &IID_IContextWebGL, &LIBID_HTML5iLib, 
+                         /*wMajor =*/ 1, /*wMinor =*/ 0>
 {
 public:
 	CContextWebGL()

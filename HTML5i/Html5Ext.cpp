@@ -3,17 +3,14 @@
 #include "stdafx.h"
 #include "Html5Ext.h"
 
+#include <atlstr.h>
+
 #include <ActivScp.h>
 
+#include "LogHelper.h"
 #include "DispExSinkConnector.h"
 #include "Context2D.h"
 #include "ContextWebGL.h"
-
-#define TRACE_LEVEL_FATAL 0
-#define TRACE_LEVEL_ERROR 1
-#define TRACE_LEVEL_WARN 2
-#define TRACE_LEVEL_INFO 3
-#define TRACE_LEVEL_DEBUG 4
 
 // CHtml5Ext
 
@@ -21,23 +18,34 @@ HRESULT CHtml5Ext::SetSite(_In_opt_ IUnknown *pUnkSite)
 {
   HRESULT hr = IObjectWithSiteImpl<CHtml5Ext>::SetSite(pUnkSite);
 
+  LOG_DEBUG(_T("SetSite(site=0x%p)"), pUnkSite);
+
   if (pUnkSite)
   {
     m_spWebBrowser2 = pUnkSite;
 
     if (m_spWebBrowser2)
     {
-      ATLTRACE2(atlTraceGeneral, TRACE_LEVEL_INFO, _T("sinking events from IWebBrowser2, %x"), m_spWebBrowser2);
+      LOG_INFO(_T("sinking events from IWebBrowser2 (0x%p)"), m_spWebBrowser2);
 
       hr = ConnectBrowserEvents(true);
 
       if (FAILED(hr))
-        ATLTRACE2(atlTraceCOM, TRACE_LEVEL_FATAL, _T("fail to sinking events from IWebBrowser2, %x"), m_spWebBrowser2);
+        LOG_ERROR(_T("fail to sinking events from IWebBrowser2 (0x%p)"), m_spWebBrowser2);
     }
     else
     {
-      ATLTRACE2(atlTraceQI, TRACE_LEVEL_FATAL, _T("fail to QI for IWebBrowser2, %s"), pUnkSite);
+      LOG_ERROR(_T("fail to QI for IWebBrowser2, %s"), pUnkSite);
     }
+  }
+  else
+  {
+    hr = ConnectBrowserEvents(false);
+
+    if (FAILED(hr))
+      LOG_ERROR(_T("fail to unsinking events from IWebBrowser2 (0x%p), err=%08x"), m_spWebBrowser2, hr);
+
+    m_spWebBrowser2.Release();
   }
 
   return hr;
@@ -84,7 +92,7 @@ void CHtml5Ext::ProcessDocument(IHTMLDocument *pDoc)
 
     if (SUCCEEDED(spElements->get_length(&len)) && len > 0)
     {
-      ATLTRACE2(atlTraceCOM, TRACE_LEVEL_INFO, _T("found %d canvas tags"), len);
+      LOG_INFO(_T("found %d canvas tags"), len);
 
       InstallHtml5Ext(pDoc);
     }    
@@ -132,15 +140,9 @@ HRESULT CHtml5Ext::ExecJavascript(IHTMLDocument *pDoc, const std::wstring& sourc
 
     hr = spConnector->put_target(spDispEx);
 
-    ATLASSERT(SUCCEEDED(hr));
+    ATLASSERT(SUCCEEDED(hr));    
 
-    CComPtr<CanvasRenderingContext2D> spCanvas;
-
-    hr = CComCoClass<CContext2D>::CreateInstance(&spCanvas);
-
-    ATLASSERT(SUCCEEDED(hr));
-
-    hr = spConnector->AddNamedObject(CComBSTR("CanvasRenderingContext2D"), spCanvas);
+    hr = spConnector->AddNamedObject(CComBSTR("Context2D"), CContext2D::CreateConstructor());
 
     ATLASSERT(SUCCEEDED(hr));
 
@@ -149,13 +151,7 @@ HRESULT CHtml5Ext::ExecJavascript(IHTMLDocument *pDoc, const std::wstring& sourc
 
     ATLASSERT(SUCCEEDED(hr));
 
-    CComPtr<WebGLRenderingContext> spWebGL;
-
-    hr = CComCoClass<CContextWebGL>::CreateInstance(&spWebGL);
-
-    ATLASSERT(SUCCEEDED(hr));
-
-    hr = spConnector->AddNamedObject(CComBSTR("WebGLRenderingContext"), spWebGL);
+    hr = spConnector->AddNamedObject(CComBSTR("ContextWebGL"), CContextWebGL::CreateConstructor());
 
     ATLASSERT(SUCCEEDED(hr));
 
@@ -171,7 +167,7 @@ HRESULT CHtml5Ext::ExecJavascript(IHTMLDocument *pDoc, const std::wstring& sourc
 
     hr = spWin->execScript(src, lang, &ret);
 
-    ATLASSERT(SUCCEEDED(hr));
+    LOG_INFO(_T("execute script: %x"), hr);
   }
 
   return hr;
