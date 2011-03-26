@@ -26,7 +26,7 @@ HRESULT CHtml5Ext::SetSite(_In_opt_ IUnknown *pUnkSite)
     {
       LOG_INFO(_T("sinking events from IWebBrowser2 (0x%p)"), m_spWebBrowser2);
 
-      hr = ConnectBrowserEvents(true);
+      hr = WebBrowserEvents::DispEventAdvise(m_spWebBrowser2);
 
       if (FAILED(hr))
         LOG_ERROR(_T("fail to sinking events from IWebBrowser2 (0x%p)"), m_spWebBrowser2);
@@ -38,7 +38,7 @@ HRESULT CHtml5Ext::SetSite(_In_opt_ IUnknown *pUnkSite)
   }
   else
   {
-    hr = ConnectBrowserEvents(false);
+    hr = WebBrowserEvents::DispEventUnadvise(m_spWebBrowser2);
 
     if (FAILED(hr))
       LOG_ERROR(_T("fail to unsinking events from IWebBrowser2 (0x%p), err=%08x"), m_spWebBrowser2, hr);
@@ -46,19 +46,6 @@ HRESULT CHtml5Ext::SetSite(_In_opt_ IUnknown *pUnkSite)
     m_spWebBrowser2.Release();
   }
 
-  return hr;
-}
-
-HRESULT CHtml5Ext::ConnectBrowserEvents(bool advise)
-{
-  ATLASSERT(m_spWebBrowser2);
-
-  if (!m_spWebBrowser2) return S_OK;
-
-  HRESULT hr = advise ? 
-    WebBrowserEvents::DispEventAdvise(m_spWebBrowser2) :
-    WebBrowserEvents::DispEventUnadvise(m_spWebBrowser2);
-    
   return hr;
 }
 

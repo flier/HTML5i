@@ -29,7 +29,6 @@ class ATL_NO_VTABLE CHtml5Ext :
 
   CComQIPtr<IWebBrowser2> m_spWebBrowser2;
 
-  HRESULT ConnectBrowserEvents(bool advise);
   void ProcessDocument(IHTMLDocument *pDoc);
 
   void LoadJavascript(UINT id, std::wstring& source);
