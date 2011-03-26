@@ -61,7 +61,7 @@ void CScriptEnvTest::LoadClass(CScriptEnvTest::DllGetClassObjectFunc fnDllGetCla
 
   CComObjectNoLock<CClassFactoryConstructor> *ctor = new CComObjectNoLock<CClassFactoryConstructor>();
 
-  ctor->Attach(spFactory.Detach());
+  ctor->Attach(CComBSTR(name), spFactory.Detach());
 
   m_host->m_items.Add(CComBSTR(name), ctor);
 

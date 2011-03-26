@@ -5,8 +5,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerCommandArguments>lesson01.html</LocalDebuggerCommandArguments>
-    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <DebuggerFlavor>WebBrowserDebugger</DebuggerFlavor>
     <LocalDebuggerAttach>false</LocalDebuggerAttach>
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
+    <WebBrowserDebuggerHttpUrl>$(OutDir)test.html</WebBrowserDebuggerHttpUrl>
   </PropertyGroup>
 </Project>

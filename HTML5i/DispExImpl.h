@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include "LogHelper.h"
+
 using namespace ATL;
 
 class CClassFactoryConstructor;
@@ -155,7 +157,7 @@ public:
 
   }
 
-  static CClassFactoryConstructor *CreateConstructor(void)
+  static CClassFactoryConstructor *CreateConstructor(CComBSTR name)
   {
     CComPtr<IClassFactory> spFactory;
 
@@ -163,7 +165,7 @@ public:
 
     CComObject<CClassFactoryConstructor> *ctor = new CComObject<CClassFactoryConstructor>();
 
-    ctor->Attach(spFactory.Detach());
+    ctor->Attach(name, spFactory.Detach());
 
     return ctor;
   }
@@ -523,9 +525,10 @@ public:
 
 class CClassFactoryConstructor : public CScriptConstructor
 {
+  CComBSTR m_name;
   CComPtr<IClassFactory> m_spFactory;
 public:
-  void Attach(IClassFactory *pFactory) { m_spFactory = pFactory; }
+  void Attach(CComBSTR name, IClassFactory *pFactory) { m_name = name; m_spFactory = pFactory; }
 
   virtual /* [local] */ HRESULT STDMETHODCALLTYPE InvokeEx( 
     /* [annotation][in] */ 
@@ -543,6 +546,8 @@ public:
     /* [annotation][unique][in] */ 
     __in_opt  IServiceProvider *pspCaller)
   {
+    LOG_INFO(_T("call %s constructor"), m_name);
+
     if ((id != DISPID_VALUE) || !(wFlags & DISPATCH_CONSTRUCT))
       return DISP_E_MEMBERNOTFOUND;
 

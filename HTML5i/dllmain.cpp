@@ -15,6 +15,9 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpRes
 	if (!PrxDllMain(hInstance, dwReason, lpReserved))
 		return FALSE;
 #endif
-	hInstance;
+  if (dwReason == DLL_PROCESS_ATTACH)
+  {
+    ::DisableThreadLibraryCalls(hInstance);
+  }
 	return _AtlModule.DllMain(dwReason, lpReserved); 
 }

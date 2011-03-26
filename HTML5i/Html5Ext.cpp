@@ -3,8 +3,6 @@
 #include "stdafx.h"
 #include "Html5Ext.h"
 
-#include <atlstr.h>
-
 #include <ActivScp.h>
 
 #include "LogHelper.h"
@@ -68,11 +66,12 @@ void CHtml5Ext::OnDocumentComplete(LPDISPATCH pDisp, VARIANT* URL)
 {
   CComQIPtr<IWebBrowser2> spWebBrowser2 = pDisp;  
 
-  if (spWebBrowser2)
+  if (spWebBrowser2 && m_spWebBrowser2 &&
+      m_spWebBrowser2.IsEqualObject(spWebBrowser2))
   {
     CComPtr<IDispatch> spDisp;
 
-    if (SUCCEEDED(spWebBrowser2->get_Document(&spDisp)))
+    if (SUCCEEDED(m_spWebBrowser2->get_Document(&spDisp)))
     {
       CComQIPtr<IHTMLDocument> spDoc = spDisp;
 
@@ -142,7 +141,7 @@ HRESULT CHtml5Ext::ExecJavascript(IHTMLDocument *pDoc, const std::wstring& sourc
 
     ATLASSERT(SUCCEEDED(hr));    
 
-    hr = spConnector->AddNamedObject(CComBSTR("Context2D"), CContext2D::CreateConstructor());
+    hr = spConnector->AddNamedObject(CComBSTR("Context2D"), CContext2D::CreateConstructor("Context2D"));
 
     ATLASSERT(SUCCEEDED(hr));
 
@@ -151,7 +150,7 @@ HRESULT CHtml5Ext::ExecJavascript(IHTMLDocument *pDoc, const std::wstring& sourc
 
     ATLASSERT(SUCCEEDED(hr));
 
-    hr = spConnector->AddNamedObject(CComBSTR("ContextWebGL"), CContextWebGL::CreateConstructor());
+    hr = spConnector->AddNamedObject(CComBSTR("ContextWebGL"), CContextWebGL::CreateConstructor("ContextWebGL"));
 
     ATLASSERT(SUCCEEDED(hr));
 
@@ -160,14 +159,52 @@ HRESULT CHtml5Ext::ExecJavascript(IHTMLDocument *pDoc, const std::wstring& sourc
 
     ATLASSERT(SUCCEEDED(hr));
 
-    CComQIPtr<IHTMLWindow2> spWin = spDisp;
+    /*
+    DISPID dispid;
+    CComBSTR bstrName;
 
-    CComBSTR src(source.c_str()), lang(_T("javascript"));
-    CComVariant ret;
+    hr = spDispEx->GetNextDispID(fdexEnumAll, DISPID_STARTENUM, &dispid);
 
-    hr = spWin->execScript(src, lang, &ret);
+    while (hr == S_OK)
+    {
+      hr = spDispEx->GetMemberName(dispid, &bstrName);
+      
+      ATLASSERT(SUCCEEDED(hr));
 
-    LOG_INFO(_T("execute script: %x"), hr);
+      DWORD dwProps = 0;
+
+      hr = spDispEx->GetMemberProperties(dispid, grfdexPropAll, &dwProps);
+
+      if (SUCCEEDED(hr))
+      {
+        LOG_DEBUG(_T("#%d %s=%x %s %s %s %s %s"), dispid, bstrName, dwProps,
+          ((dwProps & fdexPropCanCall) ? _T("method") : _T("")),
+          ((dwProps & fdexPropCanGet) ? _T("readable") : _T("")),
+          ((dwProps & fdexPropCanPut) ? _T("writable") : _T("")),
+          ((dwProps & fdexPropCanConstruct) ? _T("ctor") : _T("")),
+          ((dwProps & fdexPropCanSourceEvents) ? _T("event") : _T("")));
+      }
+      else
+      {
+        LOG_WARN(_T("fail to get member %s, #%d, hr=%x"), bstrName, dispid, hr);
+      }
+
+      hr = spDispEx->GetNextDispID(fdexEnumAll, dispid, &dispid);
+    }
+    */
+
+    CComQIPtr<IHTMLDocument2> spDoc = pDoc;
+    CComPtr<IHTMLWindow2> spWin;
+
+    if (SUCCEEDED(spDoc->get_parentWindow(&spWin)) && spWin)
+    {
+      CComBSTR src(source.c_str()), lang(_T("JavaScript"));
+      CComVariant ret;
+
+      hr = spWin->execScript(CComBSTR(_T("eval('alert(\"test\")');")), lang, &ret);
+
+      LOG_INFO(_T("execute script: %x"), hr);
+    }
   }
 
   return hr;

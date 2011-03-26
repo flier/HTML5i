@@ -3,6 +3,8 @@
 #include "stdafx.h"
 #include "DispExSinkConnector.h"
 
+#include "LogHelper.h"
+
 // CTypeInfoHolder
 
 HRESULT CTypeInfoHolder::LoadFunctionNames(void)
@@ -122,10 +124,11 @@ HRESULT CDispExSinkConnector::AddNamedObject(
     params.rgvarg = &arg;
     params.rgdispidNamedArgs = &dispIdPut;
 
-    pDisp->AddRef();
+    hr = m_target->Invoke(dispIdThis, IID_NULL, LOCALE_SYSTEM_DEFAULT, 
+      DISPATCH_PROPERTYPUT | DISPATCH_PROPERTYPUTREF, &params, NULL, &exc, NULL);
 
-    hr = m_target->InvokeEx(dispIdThis, LOCALE_USER_DEFAULT, 
-      DISPATCH_PROPERTYPUT, &params, NULL, &exc, NULL);
+    LOG_INFO(_T("add named object %s, id=%d, value=0x%p, ret=0x%08x"), 
+             bstrName, dispIdThis, pDisp, hr);
   }
 
   return hr;
